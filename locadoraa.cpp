@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 			break;
 		else
 		{
-			printf("\nOpçãoo inválida!");
+			printf("\nOpÃ§Ã£oo invÃ¡lida!");
 			//limpar o buffer de entrada
 			fseek(stdin, 0, SEEK_END);
 		}
@@ -81,7 +81,7 @@ char menu()
 	setlocale(LC_ALL, "");
 	char resposta[2];
  
-	printf("########################## Locadora De Automóveis ##########################");
+	printf("########################## Locadora De AutomÃ³veis ##########################");
 	printf("\n\n1 - Cadastrar um cliente\n");
 	printf("2 - Cadastrar um carro\n");
 	printf("3 - Listar todos os clientes\n");
@@ -92,7 +92,7 @@ char menu()
 	printf("8 - Entregar um carro\n");
 	printf("9 - Excluir um carro\n");
 	printf("0 - Sair\n");
-	printf("Informe o número da opção: ");
+	printf("Informe o nÃºmero da opÃ§Ã£o: ");
 	scanf("%1s%*c", resposta);
  
 	fseek(stdin, 0, SEEK_END);
@@ -119,13 +119,13 @@ void cadastrar_cliente()
 
 	if(arq_clientes == NULL)
 	{
-		printf("\nNão foi possível abrir arquivo!\n");
+		printf("\nNÃ£o foi possÃ­vel abrir arquivo!\n");
 		exit(1);
 	}
-	//pega o último ID para criar o próximo
+	//pega o Ãºltimo ID para criar o prÃ³ximo
 	int cont_bytes = 0;
 	fseek(arq_clientes, 0, SEEK_END);
-	// pegamos a quantidade de bytes com a função ftell
+	// pegamos a quantidade de bytes com a funÃ§Ã£o ftell
 	cont_bytes = ftell(arq_clientes);
 	cliente_car cliente;
 	if(cont_bytes == 0)
@@ -136,8 +136,8 @@ void cadastrar_cliente()
 	{
 		cliente_car ultimo_cliente;
  
-		// utilizo a função fseek para posicionar o arquivo
-		// cont_bytes - sizeof(cliente_car) serve para posicionar para pegar o último cliente cadastrado
+		// utilizo a funÃ§Ã£o fseek para posicionar o arquivo
+		// cont_bytes - sizeof(cliente_car) serve para posicionar para pegar o Ãºltimo cliente cadastrado
 		fseek(arq_clientes, cont_bytes - sizeof(cliente_car), SEEK_SET);
 		fread(&ultimo_cliente, sizeof(cliente_car), 1, arq_clientes);
 		cliente.id = ultimo_cliente.id + 1;
@@ -157,11 +157,11 @@ void cadastrar_cliente()
 void cadastrar_carro()
 {
 	// abre o arquivo para escrita
-	FILE *arq_carros = fopen("carros.dat", "ab+"); //ab+ anexa dados em um arquivo já existente, permitindo também a
-                                                  //leitura (cria arquivo se ele não existir)
+	FILE *arq_carros = fopen("carros.dat", "ab+"); //ab+ anexa dados em um arquivo jÃ¡ existente, permitindo tambÃ©m a
+                                                  //leitura (cria arquivo se ele nÃ£o existir)
 	if(arq_carros == NULL)
 	{
-		printf("\nNão foi possível abrir arquivo!\n");
+		printf("\nNÃ£o foi possÃ­vel abrir arquivo!\n");
 		exit(1); 
 	}
 	carro_car carro;
@@ -222,20 +222,20 @@ void listar_clientes()
 	FILE *arq_clientes = fopen("clientes.dat", "rb");
 	if(arq_clientes == NULL)
 	{
-		printf("\Não foi possível abrir arquivo!ou ");
+		printf("\NÃ£o foi possÃ­vel abrir arquivo!ou ");
 		printf("Nenhum cliente cadastrado.\n");
 		system("pause");
 		return;
 	}
  
-	// variável que indica se encontrou pelo menos 1 cliente
+	// variÃ¡vel que indica se encontrou pelo menos 1 cliente
 	int encontrou_clientes = 0;
 	cliente_car cliente;
  
 	printf("\nLista de todos os clientes...\n");
 	while(1)
 	{
-		// fread retorna o número de elementos lidos com sucesso
+		// fread retorna o nÃºmero de elementos lidos com sucesso
 		size_t result = fread(&cliente, sizeof(cliente_car), 1, arq_clientes);
 		if(result == 0)
 			break;
@@ -260,7 +260,7 @@ cliente_car *obter_cliente(FILE *arq_clientes, int cliente_id)
 	cliente = (cliente_car *)malloc(sizeof(cliente_car));
 	while(1)
 	{
-		// fread retorna o número de elementos lidos com sucesso
+		// fread retorna o nÃºmero de elementos lidos com sucesso
 		size_t result = fread(cliente, sizeof(cliente_car), 1, arq_clientes);
 		if(result == 0)
 		{
@@ -281,7 +281,7 @@ void listar_carros()
  
 	if(arq_carros == NULL)
 	{
-		printf("\Não foi possível abrir arquivo! ou ");
+		printf("\NÃ£o foi possÃ­vel abrir arquivo! ou ");
 		printf("Nenhum carro cadastrado.\n");
 		system("pause");
 		fseek(stdin, 0, SEEK_END); 
@@ -300,13 +300,13 @@ void listar_carros()
  
 		printf("\nID do carro: %d\n", carro.id);
 		printf("Marca do carro: %s\n", carro.marca);
-		printf("Preço: %.2f\n", carro.preco);
+		printf("PreÃ§o: %.2f\n", carro.preco);
  
 		if(carro.cliente_id != -1)
 		{
 			if(arq_clientes == NULL)
 			{
-				printf("\Não foi possível abrir arquivo!!\n");
+				printf("\NÃ£o foi possÃ­vel abrir arquivo!!\n");
 				fclose(arq_carros); 
 				exit(1); 
 			}
@@ -315,7 +315,7 @@ void listar_carros()
 			free(cliente);
 		}
 		else
-			printf("Foi alugado? Não\n");
+			printf("Foi alugado? NÃ£o\n");
 	}
 	if(encontrou_carros == 0)
 		printf("\nNenhum carro cadastrado.\n");
@@ -336,7 +336,7 @@ void listar_carros()
  
 	if(arq_carros == NULL)
 	{
-		printf("\Não foi possível abrir arquivo!!\n");
+		printf("\NÃ£o foi possÃ­vel abrir arquivo!!\n");
 		system("pause");
 	}
  
@@ -357,12 +357,12 @@ void listar_carros()
 		if(strcmp(strupr(marca_aux), strupr(marca)) == 0)
 		{
 			printf("ID do carro: %d\n", carro.id);
-			printf("Preço: %.2lf\n", carro.preco);
+			printf("PreÃ§o: %.2lf\n", carro.preco);
 			if(carro.cliente_id != -1)
 			{
 				if(arq_clientes == NULL)
 				{
-					printf("\Não foi possível abrir arquivo!!\n");
+					printf("\NÃ£o foi possÃ­vel abrir arquivo!!\n");
 					fclose(arq_carros);
 					system("pause");
 				}
@@ -392,7 +392,7 @@ void pesquisar_cliente()
 	FILE *arq_clientes = fopen("clientes.dat", "rb");
 	if(arq_clientes == NULL)
 	{
-		printf("\Não foi possível abrir arquivo!)!\n");
+		printf("\NÃ£o foi possÃ­vel abrir arquivo!)!\n");
 		exit(1); 
 	}
  
@@ -493,7 +493,7 @@ void alugar_carro()
 	char str_cliente_id[10];
 	int cliente_id;
  
-	// rb+ abre para leitura/atualização
+	// rb+ abre para leitura/atualizaÃ§Ã£o
 	FILE *arq_carros = fopen("carros.dat", "rb+");
 	FILE *arq_clientes = fopen("clientes.dat", "rb+");
 
@@ -502,7 +502,7 @@ void alugar_carro()
 		arq_carros = fopen("carros.dat", "wb+");
 		if(arq_carros == NULL)
 		{
-			printf("\nNão foi possível criar o arquivo!\n");
+			printf("\nNÃ£o foi possÃ­vel criar o arquivo!\n");
 			exit(1);
 		}
 	}
@@ -512,7 +512,7 @@ void alugar_carro()
 		arq_clientes = fopen("clientes.dat", "wb+");
 		if(arq_clientes == NULL)
 		{
-			printf("\nNão foi possível criar o arquivo!\n");
+			printf("\nNÃ£o foi possÃ­vel criar o arquivo!\n");
 			exit(1); 
 		}
 	}
@@ -540,7 +540,7 @@ void alugar_carro()
 				if(carro != NULL)
 				{
 					if(carro->cliente_id != -1)
-						printf("\nO carro \"%s\" já foi alugado!\n", carro->marca);
+						printf("\nO carro \"%s\" jÃ¡ foi alugado!\n", carro->marca);
 					else
 					{
 						carro->cliente_id = cliente_id;
@@ -550,16 +550,16 @@ void alugar_carro()
 					free(carro);
 				}
 				else
-					printf("\nNão existe carro com o ID \"%d\".\n", id_carro);
+					printf("\nNÃ£o existe carro com o ID \"%d\".\n", id_carro);
 			}
 			else
-				printf("\nO ID so pode conter números!\n");
+				printf("\nO ID so pode conter nÃºmeros!\n");
 		}
 		else
-			printf("\nNão existe cliente com o ID \"%d\".\n", cliente_id);
+			printf("\nNÃ£o existe cliente com o ID \"%d\".\n", cliente_id);
 	}
 	else
-		printf("\nO ID só pode conter números!\n");
+		printf("\nO ID sÃ³ pode conter nÃºmeros!\n");
 	fclose(arq_clientes);
 	fclose(arq_carros);
 	system("pause");
@@ -577,7 +577,7 @@ void entregar_carro()
 		arq_carros = fopen("carros.dat", "wb+");
 		if(arq_carros == NULL)
 		{
-			printf("\nFNão foi possível criar o arquivo!\n");
+			printf("\nFNÃ£o foi possÃ­vel criar o arquivo!\n");
 			exit(1);
 		}
 	}
@@ -594,7 +594,7 @@ void entregar_carro()
 		if(carro != NULL)
 		{
 			if(carro->cliente_id == -1)
-				printf("\nO carro \"%s\" já está disponível!\n", carro->marca);
+				printf("\nO carro \"%s\" jÃ¡ estÃ¡ disponÃ­vel!\n", carro->marca);
 			else
 			{
 				carro->cliente_id = -1;
@@ -604,10 +604,10 @@ void entregar_carro()
 			free(carro);
 		}
 		else
-			printf("\nNão existe carro com o ID \"%d\".\n", id_carro);
+			printf("\nNÃ£o existe carro com o ID \"%d\".\n", id_carro);
 	}
 	else
-		printf("\nO ID só pode conter números!\n");
+		printf("\nO ID sÃ³ pode conter nÃºmeros!\n");
 
 	fclose(arq_carros);
 	system("pause");
@@ -632,7 +632,7 @@ void excluir_carro()
  
 		if(arq_carros == NULL)
 		{
-			printf("\nNão foi possível abrir o arquivo!\n");
+			printf("\nNÃ£o foi possÃ­vel abrir o arquivo!\n");
 			exit(1);
 		}
 		if(existe_carro(arq_carros, id_carro) == 1)
@@ -671,7 +671,7 @@ void excluir_carro()
 				int r = rename("temp_carros.dat", "carros.dat");
 				if(r != 0)
 				{
-					printf("\nPermissão negada para renomear o arquivo!\n");
+					printf("\nPermissÃ£o negada para renomear o arquivo!\n");
 				}
 				else
 					printf("\nCarro removido com sucesso!\n");
@@ -680,11 +680,11 @@ void excluir_carro()
 		else
 		{
 			fclose(arq_carros);
-			printf("\nNão existe carro com o ID \"%d\".\n", id_carro);
+			printf("\nNÃ£o existe carro com o ID \"%d\".\n", id_carro);
 		}
 	}
 	else
-		printf("\nO ID só pode conter números!\n");
+		printf("\nO ID sÃ³ pode conter nÃºmeros!\n");
 	system("pause");
 	fseek(stdin, 0, SEEK_END);
 }
